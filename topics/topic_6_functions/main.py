@@ -20,21 +20,18 @@ from typing import Callable, Iterable, List, Any
 def fibonacci(n: int) -> List[int]:
     """Return a list with the first *n* Fibonacci numbers (recursive)."""
     if n == 0:
-      return 0
+        return 0
     elif n == 1:
-      return 1
-    else:
-        return fibonacci(n-1) + fibonacci(n-2)
-    print(fibonacci(.8))
+        return 1
+    return fibonacci(n - 1) + fibonacci(n - 2)
 
 
 def factorial(n: int) -> int:
     """Return the factorial of *n* using recursion."""
     if n == 0:
         return 1
-    else:
-        return n * factorial(n-1)
-print(factorial(8))
+    return n * factorial(n - 1)
+
 
 def apply(
     func: Callable[[int], Any], seq: Iterable[int], /, *, reverse: bool = False
@@ -55,7 +52,8 @@ def print_table(
 
 def main() -> None:
     """Entry point for simple CLI testing."""
-    pass
+    print("Fibonacci number(8): ", fibonacci(8))
+    print("Factorial(8): ", factorial(8))
 
 
 if __name__ == "__main__":
