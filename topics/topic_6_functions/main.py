@@ -25,8 +25,7 @@ def fibonacci(n: int) -> List[int]:
       return 1
     else:
         return fibonacci(n-1) + fibonacci(n-2)
-    print(fibonacci(.8))
-
+print(fibonacci(8))
 
 def factorial(n: int) -> int:
     """Return the factorial of *n* using recursion."""
