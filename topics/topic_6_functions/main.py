@@ -19,13 +19,22 @@ from typing import Callable, Iterable, List, Any
 
 def fibonacci(n: int) -> List[int]:
     """Return a list with the first *n* Fibonacci numbers (recursive)."""
-    pass
+    if n == 0:
+      return 0
+    elif n == 1:
+      return 1
+    else:
+        return fibonacci(n-1) + fibonacci(n-2)
+    print(fibonacci(8))
 
 
 def factorial(n: int) -> int:
     """Return the factorial of *n* using recursion."""
-    pass
-
+    if n == 0:
+        return 1
+    else:
+        return n * factorial(n-1)
+print(factorial(8))
 
 def apply(
     func: Callable[[int], Any], seq: Iterable[int], /, *, reverse: bool = False
