@@ -16,16 +16,27 @@ Main flow:
 
 from typing import Callable, Iterable, List, Any
 
-from black.nodes import is_function_or_class
+"""
+The function calls fibonacci(n + 1), the argument grows instead of shrinking, 
+so that branch never reaches the base cases 
 
+ if n <= 0:
+        return []
+    if n == 1:
+        return [1]
+    if n == 2:
+        return [1, 1]
 
+and recursion goes on indefinitely. 
+Recursion must move n toward a stopping value (0 or 1), not away from it.
+"""
 def fibonacci(n: int) -> List[int]:
     """Return a list with the first *n* Fibonacci numbers (recursive)."""
 
     if n <= 0:
-        return 0
+        return []
     if n == 1:
-        return 1
+        return [1]
 
     last_val: list[int] = fibonacci(n - 1)
     next_val: list[int] = fibonacci(n + 1)
@@ -34,6 +45,32 @@ def fibonacci(n: int) -> List[int]:
     elif next_val == 1:
         return last_val[-1] + last_val[-2]
 
+
+"""
+How it works (step by step):
+	1.	If n <= 0 → return an empty list (no numbers requested).
+	2.	If n == 1 → return [1].
+	3.	If n == 2 → return [1, 1].
+	4.	Otherwise:
+	•	Get the first n-1 numbers: prev = aleksei_fibonacci(n - 1).
+	•	Compute the next number: prev[-1] + prev[-2].
+	•	Append it and return the new list.
+
+Example for n = 4:
+	•	f(4) → needs f(3) → [1, 1, 2], next is 1 + 2 = 3 → [1, 1, 2, 3].
+"""
+def aleksei_fibonacci(n: int) -> List[int]:
+    """Return a list with the first *n* Fibonacci numbers (recursive)."""
+
+    if n <= 0:
+        return []
+    if n == 1:
+        return [1]
+    if n == 2:  # That's important because we need [last_val[-1] + last_val[-2]]
+        return [1, 1]
+
+    last_val = aleksei_fibonacci(n - 1)
+    return last_val + [last_val[-1] + last_val[-2]]
 
 
 def factorial(n: int) -> int:
@@ -62,7 +99,7 @@ def print_table(
 
 def main() -> None:
     """Entry point for simple CLI testing."""
-    print("Fibonacci number(8): ", fibonacci(8))
+    print("Fibonacci number(8): ", aleksei_fibonacci(8))
     print("Factorial(8): ", factorial(8))
 
 
