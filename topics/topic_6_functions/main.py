@@ -16,24 +16,32 @@ Main flow:
 
 from typing import Callable, Iterable, List, Any
 
+from black.nodes import is_function_or_class
+
 
 def fibonacci(n: int) -> List[int]:
     """Return a list with the first *n* Fibonacci numbers (recursive)."""
-    if n == 0:
-      return 0
-    elif n == 1:
-      return 1
-    else:
-        return fibonacci(n-1) + fibonacci(n-2)
-print(fibonacci(8))
+
+    if n <= 0:
+        return 0
+    if n == 1:
+        return 1
+
+    last_val: list[int] = fibonacci(n - 1)
+    next_val: list[int] = fibonacci(n + 1)
+    if len(last_val) == 1:
+        return next_val
+    elif next_val == 1:
+        return last_val[-1] + last_val[-2]
+
+
 
 def factorial(n: int) -> int:
     """Return the factorial of *n* using recursion."""
     if n == 0:
         return 1
-    else:
-        return n * factorial(n-1)
-print(factorial(8))
+    return n * factorial(n - 1)
+
 
 def apply(
     func: Callable[[int], Any], seq: Iterable[int], /, *, reverse: bool = False
@@ -54,7 +62,8 @@ def print_table(
 
 def main() -> None:
     """Entry point for simple CLI testing."""
-    pass
+    print("Fibonacci number(8): ", fibonacci(8))
+    print("Factorial(8): ", factorial(8))
 
 
 if __name__ == "__main__":
